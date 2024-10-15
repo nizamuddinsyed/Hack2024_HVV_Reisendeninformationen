@@ -1,0 +1,595 @@
+[
+    {
+        "id": "e3455649094ae67d",
+        "type": "tab",
+        "label": "hvv-alert-system",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d90dc3d383331145",
+        "type": "kafka-broker",
+        "name": "",
+        "hosts": "kafka:9092",
+        "selfsign": false,
+        "usetls": false,
+        "cacert": "",
+        "clientcert": "",
+        "privatekey": "",
+        "passphrase": ""
+    },
+    {
+        "id": "717f891e76cd1a35",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d1c9143a9698b87c",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "deep-purple",
+                "accents": "indigo",
+                "warn": "red",
+                "background": "blue-grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "HVV Alert System",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "true",
+            "allowTempTheme": "none",
+            "dateFormat": "DD.MM.YYYY",
+            "sizes": {
+                "sx": 150,
+                "sy": 48,
+                "gx": 10,
+                "gy": 10,
+                "cx": 10,
+                "cy": 10,
+                "px": 110,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "47ec5e0635878ac1",
+        "type": "ui_group",
+        "name": "Status",
+        "tab": "717f891e76cd1a35",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dd7d4b20ccd6f126",
+        "type": "ui_spacer",
+        "z": "e3455649094ae67d",
+        "name": "spacer",
+        "group": "47ec5e0635878ac1",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "7822812d509b7f06",
+        "type": "ui_spacer",
+        "z": "e3455649094ae67d",
+        "name": "spacer",
+        "group": "47ec5e0635878ac1",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "inject_hvv_data",
+        "type": "inject",
+        "z": "e3455649094ae67d",
+        "name": "hvv_source",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "hvv_data",
+        "payload": "{\"station\":\"Hamburg Hauptbahnhof\",\"destStation\":\"Hamburg Hauptbahnhof\",\"line\":\"S1\",\"departure_time\":\"2024-10-11T12:05:00\",\"real_departure\":\"2024-10-11T12:08:00\",\"status\":\"Delayed\",\"platform\":\"3\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "9242a45f469fe102"
+            ]
+        ]
+    },
+    {
+        "id": "function_db_navigator",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Process DB Navigator Data",
+        "func": "// Ensure that msg.payload exists and is an object\nif (typeof msg.payload !== 'object' || msg.payload === null) {\n    msg.payload = {};\n}\n\n// Simulate the DB Navigator data by adding it to the payload\nmsg.payload.db_navigator = {\n    ...msg.payload,\n    // Adjust the 'real_departure' time here to simulate different scenarios.\n    \n    // Uncomment one of the following lines to test each scenario:\n\n    // real_departure: msg.payload.real_departure,\n    // Scenario 1: Exact time match - HVV and DB Navigator report the same time.\n    \n    real_departure: '2024-10-11T12:09:00',\n    // Scenario 2: Time mismatch - HVV and DB Navigator have different times.\n    \n    // real_departure: null,\n    // Scenario 3: Missing data in DB Navigator - DB Navigator lacks a real_departure time.\n\n    // Adjust the HVV real_departure directly in the Inject node for these scenarios:\n    // real_departure: null,\n    // Scenario 4: Set HVV's real_departure to null in the Inject node to simulate \"Missing Data in HVV\".\n\n    // real_departure: null,\n    // Scenario 5: Set both HVV and DB Navigator's real_departure to null to simulate \"Missing Data in Both Sources\".\n};\n\n\n\n// Send the modified message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "497c3e0a7db2b264"
+            ]
+        ]
+    },
+    {
+        "id": "discrepancy_checker",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Check Discrepancies",
+        "func": "// Extract real_departure times from different sources, using \"N/A\" if not present\nlet hvvTime = msg.payload.real_departure || \"N/A\";\nlet dbTime = msg.payload.db_navigator?.real_departure || \"N/A\";\nlet googleTime = msg.payload.google_maps?.real_departure || \"N/A\";\nlet displayTime = msg.payload.display_board?.real_departure || \"N/A\";\n\nlet messages = [];\nlet hasMismatch = false;  // This will be used to determine the alert status\n\nlet arrivalStation = \"Pinneberg\";\n// let offset = 0;\n\n// Define a station and line for consistency (adjust if needed)\nlet station = msg.payload.station || \"Unknown Station\";\nlet line = msg.payload.line || \"Unknown Line\";\n\n\n// Helper function to check if a string can be parsed as a valid date\nfunction isValidDate(dateString) {\n    let date = new Date(dateString);\n    return !isNaN(date); // Returns true if date is valid, false otherwise\n}\n\n// Helper function to calculate time difference in minutes and return formatted offset\nfunction calculateOffset(time1, time2) {\n    if (time1 === \"N/A\" || time2 === \"N/A\") return \"N/A\";\n    \n    // Check if both times are valid dates\n    if (!isValidDate(time1) || !isValidDate(time2)) return \"Invalid Date\";\n\n    let t1 = new Date(time1);\n    let t2 = new Date(time2);\n\n    let diffMs = t1.getTime() - t2.getTime(); // Difference in milliseconds\n    let diffMins = Math.round(diffMs / 60000); // Convert to minutes\n\n    // return diffMins >= 0 ? `+${diffMins} min` : `${diffMins} min`;\n    // Reverse the sign of the time difference\n    let reversedDiffMins = diffMins * -1;\n\n    return reversedDiffMins >= 0 ? `+${reversedDiffMins} min` : `${reversedDiffMins} min`;\n}\n\n// Compare each source against the others and add to messages array if there's a mismatch\nif (hvvTime !== dbTime) {\n   let offset = calculateOffset(hvvTime, dbTime); \n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        offset : offset,\n        discrepancy: `⚠️ Mismatch between HVV (${hvvTime}) and DB Navigator (${dbTime})`\n    });\n    hasMismatch = true;\n}\nif (hvvTime !== googleTime) {\n   let offset = calculateOffset(hvvTime, googleTime); \n\n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        offset:offset,\n        discrepancy: `⚠️ Mismatch between HVV (${hvvTime}) and Google Maps (${googleTime})`\n    });\n    hasMismatch = true;\n}\nif (hvvTime !== displayTime) {\n   let offset = calculateOffset(hvvTime, displayTime); \n\n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        offset:offset,\n        discrepancy: `⚠️ Mismatch between HVV (${hvvTime}) and Display Board (${displayTime})`\n    });\n    hasMismatch = true;\n}\nif (dbTime !== googleTime) {\n   let offset = calculateOffset(dbTime, googleTime); \n\n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        offset:offset,\n        discrepancy: `⚠️ Mismatch between DB Navigator (${dbTime}) and Google Maps (${googleTime})`\n    });\n    hasMismatch = true;\n}\nif (dbTime !== displayTime) {\n   let offset = calculateOffset(dbTime, displayTime); \n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        offset:offset,\n        discrepancy: `⚠️ Mismatch between DB Navigator (${dbTime}) and Display Board (${displayTime})`\n    });\n    hasMismatch = true;\n}\nif (googleTime !== displayTime) {\n   let offset = calculateOffset(googleTime, displayTime); \n\n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        offset:offset,\n        discrepancy: `⚠️ Mismatch between Google Maps (${googleTime}) and Display Board (${displayTime})`\n    });\n    hasMismatch = true;\n}\n\n// If no mismatches were detected, add a message indicating that\nif (!hasMismatch) {\n    messages.push({\n        station: station,\n        line: line,\n        arrivalStation: arrivalStation,\n        discrepancy: \"✅ No mismatches detected between all sources.\"\n    });\n}\n\n// Set the payload to the messages (which is an array of objects)\nmsg.payload = messages;\n\n// Set the alert status for the LED or Text nodes\nmsg.alertStatus = hasMismatch ? \"TRUE\" : \"FALSE\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 540,
+        "wires": [
+            [
+                "813b1969e75491ce",
+                "04a348c0ad7f52bd",
+                "cae5a92da817ee56",
+                "ui_alert_table"
+            ]
+        ]
+    },
+    {
+        "id": "ui_alert_table",
+        "type": "ui_table",
+        "z": "e3455649094ae67d",
+        "group": "47ec5e0635878ac1",
+        "name": "Discrepancy Alerts",
+        "order": 2,
+        "width": 6,
+        "height": 5,
+        "columns": [
+            {
+                "field": "station",
+                "title": "Departure Station",
+                "width": "20px",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "line",
+                "title": "Line",
+                "width": "10px",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "arrivalStation",
+                "title": "Arrival Station",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "offset",
+                "title": "Offset",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "discrepancy",
+                "title": "Discrepancy",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1290,
+        "y": 440,
+        "wires": [],
+        "info": "Alerts"
+    },
+    {
+        "id": "376876f82196c7c0",
+        "type": "kafka-consumer",
+        "z": "e3455649094ae67d",
+        "name": "HVV Kafka Consumer",
+        "broker": "d90dc3d383331145",
+        "outOfRangeOffset": "earliest",
+        "fromOffset": "latest",
+        "topic": "hvv_data",
+        "groupid": "nodered_consumer_group",
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "d1dc9556633901b9"
+            ]
+        ]
+    },
+    {
+        "id": "57dc4d52aca73980",
+        "type": "kafka-producer",
+        "z": "e3455649094ae67d",
+        "name": "HVV Kafka Producer",
+        "broker": "d90dc3d383331145",
+        "topic": "hvv_data",
+        "requireAcks": 1,
+        "ackTimeoutMs": 100,
+        "attributes": 0,
+        "x": 600,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9242a45f469fe102",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "parse json",
+        "func": "// Serialize the payload into a JSON string before sending to Kafka\nmsg.payload = JSON.stringify(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "57dc4d52aca73980"
+            ]
+        ]
+    },
+    {
+        "id": "d1dc9556633901b9",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "parse json",
+        "func": "// Parse the JSON string from the Kafka message\nif (typeof msg.payload.value === 'string') {\n    try {\n        msg.payload = JSON.parse(msg.payload.value);\n    } catch (error) {\n        node.error(\"Failed to parse JSON from msg.payload.value\", error);\n        return null;\n    }\n}\n\n// Return the parsed message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "function_db_navigator"
+            ]
+        ]
+    },
+    {
+        "id": "353f610eeafd2347",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Filetr Missmatch",
+        "func": "// Check if there is a discrepancy\nif (msg.payload[0].discrepancy && msg.payload[0].discrepancy.includes('Time mismatch detected')) {\n    // Pass through only messages with mismatches\n    return msg;\n} else {\n    // Drop messages without mismatches\n    return null;\n}\n// Pass through messages with specific discrepancy messages\nif (msg.payload[0].discrepancy !== \"No mismatch\") {\n    return msg;\n} else {\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cae5a92da817ee56",
+        "type": "debug",
+        "z": "e3455649094ae67d",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6bcb7c5ec8e50df3",
+        "type": "ui_text",
+        "z": "e3455649094ae67d",
+        "group": "47ec5e0635878ac1",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "20",
+        "color": "#ff0000",
+        "x": 1250,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "261be135f5918182",
+        "type": "ui_led",
+        "z": "e3455649094ae67d",
+        "order": 4,
+        "group": "47ec5e0635878ac1",
+        "width": 4,
+        "height": 1,
+        "label": "⚠️ ALERT !!!",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": true,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 1330,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "04a348c0ad7f52bd",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Control LED",
+        "func": "// Extract the alert status from the previous function output\nlet alertStatus = msg.alertStatus;\n\n// Convert the alert status \"TRUE\"/\"FALSE\" to a boolean for the LED node\nmsg.payload = alertStatus === \"TRUE\";\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 540,
+        "wires": [
+            [
+                "261be135f5918182"
+            ]
+        ]
+    },
+    {
+        "id": "813b1969e75491ce",
+        "type": "ui_template",
+        "z": "e3455649094ae67d",
+        "group": "47ec5e0635878ac1",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"\n    color: {{msg.alertStatus === 'TRUE' ? 'red' : 'green'}};\n    font-weight: bold;\n    font-size: 20px;\n    text-align: center;\n    width: 100%;\n    white-space: pre-wrap;\n    word-wrap: break-word;\n    line-height: 1.5;\n    padding: 10px;\n\">\n    {{msg.alertStatus === 'TRUE' ? 'MISMATCH DETECTED' : 'ALL SYSTEMS OK'}}\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1100,
+        "y": 620,
+        "wires": [
+            [
+                "6bcb7c5ec8e50df3"
+            ]
+        ]
+    },
+    {
+        "id": "497c3e0a7db2b264",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Process Google Maps Data",
+        "func": "// Ensure msg.payload exists and is an object\nif (typeof msg.payload !== 'object' || msg.payload === null) {\n    msg.payload = {};\n}\n\n// Simulate Google Maps data by adding it to the payload\nmsg.payload.google_maps = {\n    ...msg.payload,\n    // Adjust the 'real_departure' time here to simulate different scenarios:\n    real_departure: '2024-10-11T12:06:00'  // Adjust as needed for testing\n    // real_departure: msg.payload.real_departure,\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 460,
+        "wires": [
+            [
+                "145c9fbe1e5aeff0"
+            ]
+        ]
+    },
+    {
+        "id": "145c9fbe1e5aeff0",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Process Platform Display Data",
+        "func": "// Ensure msg.payload exists and is an object\nif (typeof msg.payload !== 'object' || msg.payload === null) {\n    msg.payload = {};\n}\n\n// Simulate Display Board data by adding it to the payload\nmsg.payload.display_board = {\n    ...msg.payload,\n    // Adjust the 'real_departure' time here to simulate different scenarios:\n    real_departure: '2024-10-11T12:05:30'  // Adjust as needed for testing\n    // real_departure: msg.payload.real_departure,\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 540,
+        "wires": [
+            [
+                "discrepancy_checker"
+            ]
+        ]
+    },
+    {
+        "id": "124959a3f75fe2c9",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Check Discrepancies",
+        "func": "// Extract real_departure times from different sources, using \"N/A\" if not present\nlet hvvTime = msg.payload.real_departure || \"N/A\";\nlet dbTime = msg.payload.db_navigator ? msg.payload.db_navigator.real_departure : \"N/A\";\n\nlet message;\n\n// Scenario 5: Missing Data in Both Sources\nif (hvvTime === \"N/A\" && dbTime === \"N/A\") {\n    message = \"No departure data available from both sources\";\n}\n// Scenario 3: Missing Data in HVV\nelse if (hvvTime === \"N/A\") {\n    message = \"Missing HVV data\";\n}\n// Scenario 4: Missing Data in DB Navigator\nelse if (dbTime === \"N/A\") {\n    message = \"Missing DB Navigator data\";\n}\n// Scenario 2: Time Mismatch\nelse if (hvvTime !== dbTime) {\n    message = `Time mismatch detected. HVV: ${hvvTime}, DB: ${dbTime}`;\n}\n// Scenario 1: Exact Time Match\nelse {\n    message = \"No mismatch\";\n}\n\n// Create a message to send to the ui_table\nmsg.payload = [\n    {\n        \"station\": msg.payload.station,\n        \"line\": msg.payload.line,\n        \"discrepancy\": message\n    }\n];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d7d6dac6e259337b",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Check Discrepancies",
+        "func": "// Extract real_departure times from different sources, using \"N/A\" if not present\nlet hvvTime = msg.payload.real_departure || \"N/A\";\nlet dbTime = msg.payload.db_navigator?.real_departure || \"N/A\";\nlet googleTime = msg.payload.google_maps?.real_departure || \"N/A\";\nlet displayTime = msg.payload.display_board?.real_departure || \"N/A\";\n\nlet messages = [];\n\n// Compare each source against the others and add to messages array if there's a mismatch\nif (hvvTime !== dbTime) {\n    messages.push(`Mismatch between HVV (${hvvTime}) and DB Navigator (${dbTime})`);\n}\nif (hvvTime !== googleTime) {\n    messages.push(`Mismatch between HVV (${hvvTime}) and Google Maps (${googleTime})`);\n}\nif (hvvTime !== displayTime) {\n    messages.push(`Mismatch between HVV (${hvvTime}) and Display Board (${displayTime})`);\n}\nif (dbTime !== googleTime) {\n    messages.push(`Mismatch between DB Navigator (${dbTime}) and Google Maps (${googleTime})`);\n}\nif (dbTime !== displayTime) {\n    messages.push(`Mismatch between DB Navigator (${dbTime}) and Display Board (${displayTime})`);\n}\nif (googleTime !== displayTime) {\n    messages.push(`Mismatch between Google Maps (${googleTime}) and Display Board (${displayTime})`);\n}\n\n// If no mismatches were detected, add a message indicating that\nif (messages.length === 0) {\n    messages.push(\"No mismatches detected between all sources.\");\n}\n\n// Set the payload to the messages\nmsg.payload = messages;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5aa57040a9a54ef3",
+        "type": "function",
+        "z": "e3455649094ae67d",
+        "name": "Check Discrepancies",
+        "func": "// Extract real_departure times from different sources, using \"N/A\" if not present\nlet hvvTime = msg.payload.real_departure || \"N/A\";\nlet dbTime = msg.payload.db_navigator?.real_departure || \"N/A\";\nlet googleTime = msg.payload.google_maps?.real_departure || \"N/A\";\nlet displayTime = msg.payload.display_board?.real_departure || \"N/A\";\n\nlet messages = [];\nlet hasMismatch = false;  // This will be used to determine the alert status\n\n// Compare each source against the others and add to messages array if there's a mismatch\nif (hvvTime !== dbTime) {\n    messages.push(`⚠️ Mismatch between HVV (${hvvTime}) and DB Navigator (${dbTime})`);\n    hasMismatch = true;\n}\nif (hvvTime !== googleTime) {\n    messages.push(`⚠️ Mismatch between HVV (${hvvTime}) and Google Maps (${googleTime})`);\n    hasMismatch = true;\n}\nif (hvvTime !== displayTime) {\n    messages.push(`⚠️ Mismatch between HVV (${hvvTime}) and Display Board (${displayTime})`);\n    hasMismatch = true;\n}\nif (dbTime !== googleTime) {\n    messages.push(`⚠️ Mismatch between DB Navigator (${dbTime}) and Google Maps (${googleTime})`);\n    hasMismatch = true;\n}\nif (dbTime !== displayTime) {\n    messages.push(`⚠️ Mismatch between DB Navigator (${dbTime}) and Display Board (${displayTime})`);\n    hasMismatch = true;\n}\nif (googleTime !== displayTime) {\n    messages.push(`⚠️ Mismatch between Google Maps (${googleTime}) and Display Board (${displayTime})`);\n    hasMismatch = true;\n}\n\n// If no mismatches were detected, add a message indicating that\nif (!hasMismatch) {\n    messages.push(\"✅ No mismatches detected between all sources.\");\n}\n\n// Set the payload to the messages\nmsg.payload = messages;\n\n// Set the alert status for the LED or Text nodes\nmsg.alertStatus = hasMismatch ? \"TRUE\" : \"FALSE\";\n\n\n// Set the alert status for the LED or Text nodes\n// msg.alertStatus_led = hasMismatch ? true : false;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    }
+]

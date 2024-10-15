@@ -1,0 +1,11 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-kafka-client": "~0.1.0",
+        "node-red-contrib-ui-led": "~0.4.11",
+        "node-red-node-ui-table": "~0.4.4"
+    }
+}

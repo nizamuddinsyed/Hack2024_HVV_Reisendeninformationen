@@ -1,0 +1,33 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.8.2
+2 info using node@v20.18.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/.npmrc
+5 silly config load:file:/usr/src/node-red/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install node-red-contrib-ui-led@0.4.11
+8 verbose argv "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix" "~" "--omit" "dev" "--engine-strict" "node-red-contrib-ui-led@0.4.11"
+9 verbose logfile logs-max:10 dir:/data/.npm/_logs/2024-10-11T22_00_12_062Z-
+10 verbose logfile /data/.npm/_logs/2024-10-11T22_00_12_062Z-debug-0.log
+11 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+12 silly logfile done cleaning log files
+13 silly idealTree buildDeps
+14 silly fetch manifest node-red-contrib-ui-led@0.4.11
+15 silly packumentCache full:https://registry.npmjs.org/node-red-contrib-ui-led cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-ui-led 805ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/node-red-contrib-ui-led set size:undefined disposed:false
+18 silly fetch manifest node-red-dashboard@>=2.23.3
+19 silly packumentCache full:https://registry.npmjs.org/node-red-dashboard cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/node-red-dashboard 59ms (cache revalidated)
+21 silly packumentCache full:https://registry.npmjs.org/node-red-dashboard set size:592118 disposed:false
+22 silly placeDep ROOT node-red-contrib-ui-led@0.4.11 OK for: node-red-project@0.0.1 want: 0.4.11
+23 silly reify moves {}
+24 silly tarball no local data for node-red-contrib-ui-led@https://registry.npmjs.org/node-red-contrib-ui-led/-/node-red-contrib-ui-led-0.4.11.tgz. Extracting by manifest.
+25 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-ui-led/-/node-red-contrib-ui-led-0.4.11.tgz 54ms (cache miss)
+26 silly ADD node_modules/node-red-contrib-ui-led
+27 verbose cwd /data
+28 verbose os Linux 6.6.26-linuxkit
+29 verbose node v20.18.0
+30 verbose npm  v10.8.2
+31 verbose exit 0
+32 info ok
