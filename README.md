@@ -71,8 +71,12 @@ Clone the repository:
 Nodered Flow
 ![alt text](nodered_flow.png)
 
-Nodered UI
-![alt text](nodered_ui.png)
+Nodered UI (Descrepancy Detected)
+![alt text](nodered_ui_with_descripancy.png)
+
+Nodered UI (No Descrepancy)
+![alt text](nodered_ui_without_descripancy.png)
+
 
 
 WIP....
