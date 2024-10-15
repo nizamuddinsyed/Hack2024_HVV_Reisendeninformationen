@@ -51,6 +51,25 @@ Our goal is to create a uniform and reliable public transport information system
 
 ## **How to Run This Project Locally**
 
-1. Clone the repository:
+Clone the repository:
    ```bash
    git clone https://github.com/your-repo/hackathon-project.git
+
+```
+## Node-red Dashboard setup
+
+1. goto Directory:    
+   ```bash
+   cd hvv_quality_control_system_nodered
+
+2. build docker container
+    ```bash
+    docker-compose up -d --build
+
+3. Access the dashboard at http://localhost:1880/ and http://localhost:1880/ui
+
+Nodered Flow
+![alt text](nodered_flow.png)
+
+Nodered UI
+![alt text](nodered_ui.png)
