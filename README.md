@@ -71,19 +71,40 @@ Clone the repository:
     ```bash
     docker-compose up -d --build
 
-3. Access the dashboard at http://localhost:1880/ and http://localhost:1880/ui
+3. Access the dashboard
+   ```
+   Backend Flow: http://localhost:1880/
+   
+   Dashboard UI: http://localhost:1880/ui
+   ```
+## React Dashboard setup
+1. Create React app:  
+   ```bash
+   npx create-react-app react_dashboard
+   cd react_dashboard
+   ```
+2. build and start the app
+    ```bash
+   npm run build
+   npm start
+   ```
+3. Access the dashboard
+   ```
+   Dashboard: http://localhost:3000/
+   ```
 
-Nodered Flow
+## Screenshots of Dasboard
+#### 1. Nodered Flow (Backend)
 ![alt text](nodered_flow.png)
 
-Nodered UI (Descrepancy Detected)
+#### 2. Nodered UI (Descrepancy Detected)
 ![alt text](nodered_ui_with_descripancy.png)
 
-Nodered UI (No Descrepancy)
+#### 3. Nodered UI (No Descrepancy)
 ![alt text](nodered_ui_without_descripancy.png)
 
 
-React - Monitoring Dashboard
+#### 4. React - Monitoring Dashboard
 ![alt text](react_dashboard.png)
 
 
