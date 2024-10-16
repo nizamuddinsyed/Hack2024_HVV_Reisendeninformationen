@@ -83,6 +83,11 @@ Nodered UI (No Descrepancy)
 ![alt text](nodered_ui_without_descripancy.png)
 
 
+React - Monitoring Dashboard
+![alt text](react_dashboard.png)
+
+
+
 ## Contact Details
 
 For any inquiries or collaboration, please contact us at:
