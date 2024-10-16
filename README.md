@@ -44,6 +44,11 @@ Our goal is to create a uniform and reliable public transport information system
 - Assist **operators** in identifying data issues before they impact passengers
 - Lay the groundwork for a future where **all public transport data is fully aligned and accurate** across platforms
 
+
+## **Final Presentation**
+- [Link](final_presentation.pptx)
+
+
 ## **Team DigiLab**
 - **Developers**: Hossein, Nizam
 - **UI/UX Designer**: Sonia
