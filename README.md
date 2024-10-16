@@ -78,5 +78,13 @@ Nodered UI (No Descrepancy)
 ![alt text](nodered_ui_without_descripancy.png)
 
 
+## Contact Details
 
-WIP....
+For any inquiries or collaboration, please contact us at:
+
+Name : Oblonczek, Sonia (sonia.oblonczek@lsbg.hamburg.de)
+
+Name : Banay, Hossein (hossein.banay@lsbg.hamburg.de)
+
+Name : Syed, Nizam (nizamuddin.syed@lsbg.hamburg.de)
+
