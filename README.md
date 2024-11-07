@@ -46,7 +46,7 @@ Our goal is to create a uniform and reliable public transport information system
 
 
 ## **Final Presentation**
-- [Link](final_presentation.pptx)
+- [Link](241107_Hackathon_Presentation.pptx)
 
 
 ## **Team DigiLab**
