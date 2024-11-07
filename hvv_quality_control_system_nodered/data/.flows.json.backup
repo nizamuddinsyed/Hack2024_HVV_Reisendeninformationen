@@ -170,10 +170,10 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "15",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "30",
         "topic": "hvv_data",
         "payload": "{\"station\":\"Neugraben\",\"destStation\":\"Elbgaustraße\",\"line\":\"S5\",\"departure_time\":\"2024-11-06T09:32:00\",\"real_departure\":\"2024-11-06T09:32:00\",\"status\":\"OnTime\",\"platform\":\"Gleis 1\"}",
         "payloadType": "json",
@@ -343,7 +343,7 @@
             {
                 "field": "missmatch_stn",
                 "title": "MISSMATCH_APP",
-                "width": "10px",
+                "width": "15px",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -353,7 +353,7 @@
             {
                 "field": "offset",
                 "title": "OFFSET",
-                "width": "3px",
+                "width": "10px",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -534,15 +534,15 @@
         "id": "17b074aa616d54d2",
         "type": "function",
         "z": "e3455649094ae67d",
-        "name": "Counter",
-        "func": "// Retrieve the current departure times from the payload\nif (msg.payload.departure_time) {\n    let departureTime = new Date(msg.payload.departure_time);\n    departureTime.setMinutes(departureTime.getMinutes() + 6);\n    msg.payload.departure_time = departureTime.toISOString().slice(0, 19); // Format as YYYY-MM-DDTHH:mm:ss\n}\n\nif (msg.payload.real_departure) {\n    let realDeparture = new Date(msg.payload.real_departure);\n    realDeparture.setMinutes(realDeparture.getMinutes() + 6);\n    msg.payload.real_departure = realDeparture.toISOString().slice(0, 19); // Format as YYYY-MM-DDTHH:mm:ss\n}\n\n// Optionally, increment the counter for debugging purposes\nlet counter = flow.get(\"injectCounter\") || 0;\ncounter += 1;\nflow.set(\"injectCounter\", counter);\n\nreturn msg;\n",
+        "name": "Delta Modifier",
+        "func": "// Retrieve the last payload from flow context or initialize it if not set\nlet lastPayload = flow.get(\"lastPayload\") || {\n    \"station\": \"Neugraben\",\n    \"destStation\": \"Elbgaustraße\",\n    \"line\": \"S5\",\n    \"departure_time\": \"2024-11-06T09:32:00\",\n    \"real_departure\": \"2024-11-06T09:32:00\",\n    \"status\": \"OnTime\",\n    \"platform\": \"Gleis 1\"\n};\n\n// Add 6 minutes to departure_time and real_departure on each trigger\nlet departureTime = new Date(lastPayload.departure_time);\nlet realDeparture = new Date(lastPayload.real_departure);\n\ndepartureTime.setMinutes(departureTime.getMinutes() + 6);\nrealDeparture.setMinutes(realDeparture.getMinutes() + 6);\n\n// Update the payload with the modified times\nlastPayload.departure_time = departureTime.toISOString().slice(0, 19);\nlastPayload.real_departure = realDeparture.toISOString().slice(0, 19);\n\n// Save the updated payload to flow context for the next trigger\nflow.set(\"lastPayload\", lastPayload);\n\n// Set msg.payload to the updated lastPayload and pass it to the next node\nmsg.payload = lastPayload;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
+        "x": 460,
         "y": 120,
         "wires": [
             [

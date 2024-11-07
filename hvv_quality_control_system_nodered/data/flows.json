@@ -170,10 +170,10 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "10",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "30",
         "topic": "hvv_data",
         "payload": "{\"station\":\"Neugraben\",\"destStation\":\"Elbgaustraße\",\"line\":\"S5\",\"departure_time\":\"2024-11-06T09:32:00\",\"real_departure\":\"2024-11-06T09:32:00\",\"status\":\"OnTime\",\"platform\":\"Gleis 1\"}",
         "payloadType": "json",
@@ -343,7 +343,7 @@
             {
                 "field": "missmatch_stn",
                 "title": "MISSMATCH_APP",
-                "width": "10px",
+                "width": "15px",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -353,7 +353,7 @@
             {
                 "field": "offset",
                 "title": "OFFSET",
-                "width": "3px",
+                "width": "10px",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
